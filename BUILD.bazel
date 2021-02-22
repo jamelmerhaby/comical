@@ -1,0 +1,23 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+load("@bazel_gazelle//:def.bzl", "gazelle")
+
+gazelle(
+    name = "gazelle",
+    prefix = "comical",
+)
+
+go_library(
+    name = "comical_lib",
+    srcs = ["main.go"],
+    importpath = "comical",
+    visibility = ["//visibility:private"],
+    deps = [
+        "@com_github_jamelmerhaby_comical//cmd:go_default_library",
+    ],
+)
+
+go_binary(
+    name = "comical",
+    embed = [":comical_lib"],
+    visibility = ["//visibility:public"],
+)
